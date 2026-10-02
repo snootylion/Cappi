@@ -1,7 +1,12 @@
-WATCH RING DESIGNER
+# Watch Ring Designer
 
-Default inner diameter: 21.3 mm. Tested sizing range: 18–23 mm.
-Requires Blender 5.2 or later; tested with 5.2.1.
+## Size and print the ring
+
+This editable mount was validated with the **Galaxy Watch4 40 mm body** in the supplied Blender scene. It was prepared alongside the M5 MacBook Pro + Galaxy Watch4 setup; another watch model, wrist/fit preference, printer, material, or slicer may need minor adaptation and physical fit testing.
+
+Default inner diameter: **21.3 mm**. Tested sizing range: **18–23 mm**. Requires Blender 5.2 or later; tested with 5.2.1.
+
+Before printing, measure the intended finger, choose a size within the tested range, print a low-cost fit test, and confirm watch retention, comfort, and strength before regular use. The design is a mount only; it is not a safety-, medical-, or activity-certified accessory.
 
 QUICK START (no installation)
 1. Open Watch Ring Designer.blend.

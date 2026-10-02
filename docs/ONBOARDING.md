@@ -1,25 +1,59 @@
-# Onboarding
+# First-time setup
 
-## Install the local review candidate
+## Before you start
 
-Requirements: vanilla DSH **0.1.2-rc.1**, Node.js **22.19+** (accepted support target; the acceptance harness tests the actual runtime), pnpm 10, a Mac running macOS 13+, and a Wear OS watch. Configure a real model provider in DSH Settings before expecting real model replies. The keyless acceptance fixture is a test adapter, not a shipped provider or proof of an external model account.
+This is the normal user path, not the contributor/build path below. The validated combination is an **M5 MacBook Pro** running macOS 13+ and a **Galaxy Watch4**. Other Macs, Wear OS models, Android installation methods, or DSH versions may need minor adaptation; do not assume Samsung-specific button shortcuts work elsewhere.
 
-1. Review the candidate checksums/SBOM and source provenance. Install `wear-dsh-0.3.0-rc0-debug-installable.apk` using your normal Android installation workflow. It is **generic Android DEBUG/DEV signed**, suitable for a fresh local test install, **not production release signed**. The optional `*-release-unsigned.apk` cannot be installed until the owner signs it. No original-watch upgrade is promised: matching signing identity and versionCode are required for updates (current versionCode is 3). No private keystore is supplied.
-2. Install the two runtime packages with the **official DSH CLI**, LiveVoice first, then Cappi:
+You need all of the following before starting:
 
-   ```sh
-   dsh plugin --profile web add /path/to/dsh-live-voice-kokoro-0.3.0-rc0.tgz
-   dsh plugin --profile web add /path/to/dsh-watch-0.3.0-rc0.tgz
-   ```
+- **DeepSeek Harness (DSH) 0.1.2-rc.1** installed and open. This repository does not install DSH itself. Confirm the `dsh` CLI is available, use the profile you normally run (the examples use `web`), and configure a real model provider in DSH Settings.
+- **Node.js 22.19+** on the Mac. Node is required by DSH and the plugins; pnpm 10 is needed only when building from source.
+- A **Wear OS watch** on the same local network as the Mac. The documented hardware is Galaxy Watch4; generic Wear OS uses touch controls.
+- A matching set of three maintainer-provided install files from the **same build**: the DEBUG/DEV APK, `dsh-live-voice-kokoro-0.3.0-rc0.tgz`, and `dsh-watch-0.3.0-rc0.tgz`, plus their checksums. GitHub Actions artifacts are review outputs, not a signed end-user release.
 
-   These commands are user installation steps, not commands that release tests run against a live profile. Tests invoke the official package's `lib/bin.js` in an isolated home, never a user wrapper. Start the normal DSH web profile after installation. The default managed plugins create their own scoped service; **no manual bridge process, service plist, session ID, certificate, or token entry is needed**.
-3. Open the authenticated DSH Settings → Watch panel. Use its explicit voice setup/consent action. First-time users must grant **Mac Speech** permission for watch ASR; the **watch Microphone** permission is needed for watch capture. Mac Microphone permission is needed only for Mac/browser input, not generated-speech tests or watch-ASR setup. Permission denial must remain an actionable refusal, never a fake ready state. Setup does not bypass normal OS consent.
-4. Use the watch pairing wizard and discovery on the same network. Compare the displayed fingerprint on **both** the watch and authenticated Mac Settings panel, then approve. Discovery is only a candidate hint; the watch verifies the actual TLS certificate before sending its enrolled device token. Manual host entry is a fallback in the wizard, not token/session editing.
-5. Select a thread in the watch UI (or use its auto-follow option), then enable voice and test a short prompt. Model/provider configuration remains a prerequisite. The managed release supports **one active watch per DSH profile**; revoke/unpair before replacing it.
+> The keyless acceptance fixture is test-only. It is not a model provider, an external-model account, or a substitute for configuring DSH.
 
-Avatar **touch long-press** opens the menu on generic Wear OS. Samsung Watch4 hardware button behavior is a device-specific shortcut, not a requirement for other watches. Physical-watch validation of this refactored release remains separate from host protocol tests and emulator evidence.
+## First-time setup
 
-SDK capability limits are explicit: rc.1 does not support queue reordering, so managed capabilities report `queueReorder:false` and the watch disables it. Other controls must follow the advertised feature map; unsupported operations return an honest error, not success. Do not infer complete legacy feature parity.
+### 1. Install and open DSH
+
+Install DeepSeek Harness **0.1.2-rc.1** through its normal official distribution, open the profile you plan to use, and configure its model/provider access. Do this before pairing the watch: a paired watch can connect without a provider, but it cannot receive real model replies until the DSH profile is configured.
+
+### 2. Install the watch APK
+
+Review the APK checksum, then install the matching `wear-dsh-0.3.0-rc0-debug-installable.apk` on the watch using your usual Wear OS/Android installation workflow. It is **generic Android DEBUG/DEV signed** for a fresh local test install; it is **not production release signed**. The optional `*-release-unsigned.apk` cannot be installed until the owner signs it.
+
+Do not expect this APK to update an already-installed copy: Android requires the same signing identity as the existing app (the current versionCode is 3), and no private keystore is supplied. If you are adapting the workflow for another watch or Android version, use that platform's normal installation instructions rather than bypassing its security prompts.
+
+### 3. Install the DSH plugins
+
+In Terminal on the Mac, replace `web` if your DSH profile uses another name. Install **LiveVoice first**, then Cappi:
+
+```sh
+dsh plugin --profile web add /path/to/dsh-live-voice-kokoro-0.3.0-rc0.tgz
+dsh plugin --profile web add /path/to/dsh-watch-0.3.0-rc0.tgz
+```
+
+Restart or start that normal DSH profile after both commands succeed. Do **not** start a separate bridge process or edit a service plist, session ID, certificate, or token: managed mode creates the scoped local service itself.
+
+### 4. Give only the required permissions
+
+Open authenticated **DSH Settings → Watch** and select the voice setup/consent action. Grant **Mac Speech Recognition** for watch ASR and **Microphone** permission on the watch for watch capture. Mac Microphone permission is needed only for Mac/browser input, not for watch-ASR setup. If a permission is denied, use the displayed remediation rather than treating the backend as ready.
+
+### 5. Pair the watch securely
+
+On the watch, use the pairing wizard while both devices are on the same network. Select the discovered Mac, compare the displayed fingerprint on the **watch** and in **DSH Settings → Watch**, then approve on the Mac. Discovery only suggests a candidate; the watch verifies the actual TLS certificate before sending its enrolled device token. Manual host entry is a wizard fallback, never an instruction to copy a token or session ID.
+
+### 6. Confirm it works
+
+Select a thread in the watch UI (or enable auto-follow), enable voice, and send a short prompt. The managed setup supports **one active watch per DSH profile**; revoke/unpair it before pairing a replacement. On generic Wear OS, touch-hold the avatar to open the menu. Galaxy Watch4 button behavior is an optional device-specific shortcut.
+
+## What this setup does not promise
+
+- It has been tested on an M5 MacBook Pro and Galaxy Watch4; other systems may need minor adaptation.
+- SDK rc.1 does not support queue reordering, so the watch disables that feature (`queueReorder:false`).
+- The DEBUG/DEV APK is for fresh local testing, not a production-signed distribution.
+- Physical watch behavior and visual wizard flow differ across manufacturers; normal OS permission, pairing, and installation policies still apply.
 
 ## Native helper: installation versus building
 

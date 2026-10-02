@@ -1,6 +1,16 @@
-# wear-dsh-release
+# Cappi for DeepSeek Harness (Wear OS)
 
-Wear OS companion + local LiveVoice + Cappi DSH plugins, release candidate **0.3.0-rc0**. Default installation is managed inside vanilla DSH **0.1.2-rc.1**: install the LiveVoice tgz, then Cappi; use authenticated Mac Settings and the watch pairing wizard. **No manual bridge service, session ID, certificate, or token editing.** See [Onboarding](docs/ONBOARDING.md).
+A Wear OS companion, local LiveVoice, and Cappi plugins for DeepSeek Harness (DSH) **0.1.2-rc.1**. Normal use is managed inside DSH: install LiveVoice, then Cappi; pair through authenticated DSH Settings; and use the watch wizard. **No manual bridge service, session ID, certificate, or token editing.**
+
+## Start here
+
+1. Read the [first-time setup guide](docs/ONBOARDING.md#first-time-setup) before downloading or installing anything.
+2. You need a Mac (macOS 13+), DSH 0.1.2-rc.1 with a configured model provider, Node 22.19+, a Wear OS watch, and the matching APK plus both plugin `.tgz` packages.
+3. The parametric Galaxy Watch4 ring mount is separate from the software setup: see [size and print the ring](designs/parametric-watch/README.md#size-and-print-the-ring).
+
+> **Release status:** this repository is a source/review candidate. Its GitHub Actions artifacts are test/review outputs, not a signed end-user release. Do not install a random APK or package from another commit. Obtain the matching three installable files from the project maintainer, verify their checksums, then follow the onboarding guide.
+
+> **Validated hardware:** the end-to-end setup was tested on an **M5 MacBook Pro** and a **Galaxy Watch4**. Other Macs, Wear OS watches, Android installation methods, or DSH versions may require minor adaptation; see the compatibility notes in the onboarding guide.
 
 ## Local review artifacts
 
