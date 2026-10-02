@@ -594,7 +594,7 @@ class ReproducibilityTest(unittest.TestCase):
                     "plugins/dsh-watch/cordis.patch.yml",
                     "protocol/fixtures/health.json",
                     "tools/scan-secrets.py",
-                    "docs/ONBOARDING.md",
+                    "README.md",
                 ):
                     self.assertTrue(
                         Path(tmp, rel).is_file(),

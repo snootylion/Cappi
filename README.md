@@ -1,56 +1,68 @@
-# Cappi for DeepSeek Harness (Wear OS)
+# Cappi for DeepSeek Harness
 
-A Wear OS companion, local LiveVoice, and Cappi plugins for DeepSeek Harness (DSH) **0.1.2-rc.1**. Normal use is managed inside DSH: install LiveVoice, then Cappi; pair through authenticated DSH Settings; and use the watch wizard. **No manual bridge service, session ID, certificate, or token editing.**
+Use Cappi to connect a Wear OS watch to DeepSeek Harness (DSH). You can talk to DSH from the watch, see Cappi on the watch, and print the optional ring mount.
 
-## Start here
+## What you need
 
-1. Read the [first-time setup guide](docs/ONBOARDING.md#first-time-setup) before downloading or installing anything.
-2. You need a Mac (macOS 13+), DSH 0.1.2-rc.1 with a configured model provider, Node 22.19+, a Wear OS watch, and the matching APK plus both plugin `.tgz` packages.
-3. The parametric Galaxy Watch4 ring mount is separate from the software setup: see [size and print the ring](designs/parametric-watch/README.md#size-and-print-the-ring).
+- A Mac running macOS 13 or later
+- DeepSeek Harness (DSH) version 0.1.2-rc.1, installed and working with a model provider
+- Node.js 22.19 or later
+- A Wear OS watch and the Mac on the same Wi-Fi network
+- Three matching install files supplied by the project maintainer:
+  - the watch app APK
+  - `dsh-live-voice-kokoro-0.3.0-rc0.tgz`
+  - `dsh-watch-0.3.0-rc0.tgz`
 
-> **Release status:** this repository is a source/review candidate. Its GitHub Actions artifacts are test/review outputs, not a signed end-user release. Do not install a random APK or package from another commit. Obtain the matching three installable files from the project maintainer, verify their checksums, then follow the onboarding guide.
+This repository does not install DSH for you, and it does not currently provide an automatic end-user download. Install DSH using its normal instructions, then get the matching app and plugin files from the project maintainer.
 
-> **Validated hardware:** the end-to-end setup was tested on an **M5 MacBook Pro** and a **Galaxy Watch4**. Other Macs, Wear OS watches, Android installation methods, or DSH versions may require minor adaptation; see the compatibility notes in the onboarding guide.
+## Set it up
 
-## Local review artifacts
+### 1. Open DSH
 
-- `*-debug-installable.apk`: generic Android **DEBUG/DEV signed**, fresh-install test candidate; **not production release signed**. Contains the existing exported debug-renderer probe/activity and in-process test factory seam; no production-hook-isolation claim.
-- `*-release-unsigned.apk` (optional): standard release, **not R8-minified**, debuggable false and without those own debug hooks; requires the owner's signing key before installation.
-- Two plugin npm tgz packages: prebuilt JS/client assets and a manifest-verified, ad-hoc-signed universal macOS watch-ASR helper (arm64 + x86_64, macOS 13+). Runtime installation needs no Xcode/CLT; building the clean source does.
-- Allowlisted source archive, SHA256 checksums, source/asset SBOM and runtime artifact SBOM. No keystore, personal preferences, credentials, runtime consent/state, native privacy database, caches, node_modules, or model weights.
+Install and open DeepSeek Harness. Set up your model provider in DSH first. The watch can pair before this is done, but it cannot get real replies until DSH is ready.
 
-Current Android versionCode is 3. That does **not** establish upgrade compatibility with an existing physical watch: matching signing identity is also required. No original private keystore is used or supplied.
+### 2. Install the watch app
 
-## Evidence and limits
+Install the supplied APK on the watch using your normal Wear OS or Android installation method. If the watch already has an older copy of this app, remove it first unless it was installed with the same signing key.
 
-Actual isolated full runs on Node **22.23.3** and **26.5.1**, using identical reviewed runtime packs, passed real native Apple Speech → fresh SDK user/turn → fixture-model reply → production system TTS (native 9/9), plus real no-speech/no-prompt, repeated-record readiness and scoped input cancellation. Actual SDK Cappi execution and model-requested approval/question callbacks completed in correlated fresh turns. Tests never use a user's microphone, live profile, credentials or physical watch. The private fixture disables external adapter routing; published default configuration is unchanged.
+### 3. Install the two plugins
 
-Node **22.19+** is the accepted support target; actual Node22 installation/boot/wire execution is required before matrix support is marked PASS. `--skip-node22` records only the printed current runtime. Native helper Intel support means a compiled x86_64 slice, not an actual Intel-runner test. First users still need normal OS permission grants and configured DSH model/provider access; the keyless fixture is not a real external provider.
-
-One active watch per profile is supported. Generic Wear OS uses avatar touch long-press to open the menu; Samsung hardware-button shortcuts are device-specific. SDK rc.1 queue reordering is unsupported and advertised/disabled, not fake-successful. The refactored app's physical-watch validation and visual wizard/runtime testing remain separate from headless host-native acceptance; no blanket “just works” claim is made.
-
-Original project code, imported voice-plugin source and the 25 original Cappi GIFs are owner-approved **Apache-2.0**; see `LICENSE`, `NOTICE.md` and `LICENSE-DECISION.md`. Registry/provenance/mirror hashes are verified; third-party SDKs and optional models retain their own terms. Legal inventory gate closure is **not** permission to publish/upload/deploy. Final candidate bundling remains subject to parent review; no commit or network publication is performed by this work.
-
-## Verify
+On the Mac, open Terminal. Replace `web` below if you use a different DSH profile. Install LiveVoice first, then Cappi:
 
 ```sh
-./tools/verify.sh
-./tools/test-vanilla-install.sh --full --require-native
-# Explicit actual-runtime-only acceptance (every CLI/pnpm/boot uses this node):
-./tools/test-vanilla-install.sh --full --require-native --node-bin=/absolute/private/node --skip-node22
+dsh plugin --profile web add /path/to/dsh-live-voice-kokoro-0.3.0-rc0.tgz
+dsh plugin --profile web add /path/to/dsh-watch-0.3.0-rc0.tgz
 ```
 
-`VERIFY PASS` covers source/privacy/assets/licenses/SBOM/export/tests, not publication permission or physical-watch certification. Full acceptance uses isolated private homes, official DSH JS entry, ephemeral ports (never 3083/8787/8789), and generated fixtures. Wait for all builds/writers to finish before packing; the stable snapshot gate refuses concurrent source/build changes.
+Restart DSH after both commands finish. You do not need to start another service or copy any tokens, certificates, or session IDs.
 
-## Layout
+### 4. Allow permissions
 
-- `watch-app/`: Wear OS Gradle project (`dev.dsh.watch`).
-- `plugins/dsh-live-voice/`: local voice service and native source/build script.
-- `plugins/dsh-watch/`: managed pairing, watch session controls and scoped Cappi tools.
-- `bridge/`: optional advanced legacy adapter/source; not managed setup.
-- `characters/`: character packs, canonical asset licensing/provenance.
-- `protocol/`: schemas/transport contracts.
-- `tools/`: verification, allowlist export, artifact provenance and CI support.
-- `docs/`: onboarding and reference documentation.
+In DSH, open **Settings → Watch** and start voice setup. Allow Speech Recognition on the Mac and Microphone access on the watch when asked.
 
-Never commit secrets, keys, user logs/transcripts, screenshots, weights or build artifacts. Security rules: `SECURITY.md`; plugin details: `docs/plugins.md`; build commands: `docs/ONBOARDING.md`.
+### 5. Pair the watch
+
+Make sure the Mac and watch are on the same Wi-Fi network. On the watch, open the pairing wizard and select the Mac. Check that the fingerprint shown on the watch matches the one in **DSH Settings → Watch**, then approve it on the Mac.
+
+### 6. Try it
+
+Choose a conversation on the watch, turn on voice, and send a short prompt. On most Wear OS watches, touch and hold the avatar to open its menu.
+
+Only one watch can be connected to a DSH profile at a time. Unpair the old watch before connecting a different one.
+
+## Size and print the ring
+
+The optional ring mount is in [`designs/parametric-watch`](designs/parametric-watch/README.md). Open the Blender file, choose your inner finger diameter, export the ring-only OBJ, and print a small fit test before printing the final part.
+
+## Compatibility
+
+This setup was tested on an **M5 MacBook Pro** and a **Galaxy Watch4**. Other Macs, Wear OS watches, Android installation methods, and DSH versions may need small adjustments. Galaxy Watch4 buttons are optional shortcuts; use the touch controls on other Wear OS watches.
+
+## If something does not work
+
+- **`dsh` command not found:** install or reopen DeepSeek Harness so its command-line tool is available.
+- **The watch cannot find the Mac:** check that both are on the same Wi-Fi network, then use the manual host option in the pairing wizard.
+- **Pairing does not complete:** confirm that the two fingerprints match before approving.
+- **Voice is unavailable:** return to **DSH Settings → Watch** and complete the permission prompts.
+
+For technical details, source builds, and contributor information, see [`docs/`](docs/).

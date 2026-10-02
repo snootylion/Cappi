@@ -255,7 +255,7 @@ EOF
   done
   if [ ! -s "$ART_LIST" ]; then
     echo "note: no build outputs present (no APK, no plugin packs); skipping artifacts bundle."
-    echo "hint: build via docs/ONBOARDING.md + CI, then re-run with --local --artifacts."
+    echo "hint: follow the source-build documentation and CI, then re-run with --local --artifacts."
   else
     echo "source_archive_sha256: $(shasum -a 256 "$DIST/wear-dsh-${TAG}-source.tar.gz" | cut -d' ' -f1)" >> "$ART_STAGE/ARTIFACT-PLAN.txt"
     sort -u "$ART_LIST" -o "$ART_LIST"

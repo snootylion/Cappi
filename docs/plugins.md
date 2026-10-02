@@ -39,8 +39,8 @@ Start your normal web profile, open authenticated Settings → Watch, consent to
 voice setup, compare both fingerprints and approve the watch wizard. Select a
 thread using the watch UI; no manual services, tokens or session IDs are needed.
 Real model-provider configuration and normal first-user OS permissions remain
-prerequisites. See `docs/ONBOARDING.md` for DEBUG/DEV fresh-install APK signing,
-clean-source builds and honest acceptance scope.
+prerequisites. The plain-language installation steps are in the repository
+`README.md`; this document is the technical plugin reference.
 
 ## dsh-live-voice — local live voice
 

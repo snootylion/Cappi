@@ -251,10 +251,9 @@ prerequisite; the keyless test adapter is never shipped. No manual bridge servic
 certificate/token editing or typed session IDs are needed. Prebuilt native runtime
 helpers install without CLT; clean-source builds need macOS SDK/CLT.
 
-See `docs/ONBOARDING.md` for executable build/verification steps. The previous
-already-authorized generated-speech native run reached 9/9, but hardened source
-acceptance and watch UI evidence are reported separately; neither bypasses normal
-first-user consent nor certifies original physical-watch upgrade compatibility.
+See the repository `README.md` for the ordinary first-time setup path. Build
+and verification commands belong in the tool and contributor documentation; they
+do not replace normal first-user consent or device compatibility checks.
 
 ## 7. Supported control capabilities
 

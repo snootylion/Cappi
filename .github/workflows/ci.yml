@@ -1,7 +1,7 @@
 # CI for wear-dsh-release.
 #
 # Action versions are pinned to major-version tags (stable references);
-# no commit hashes are vendored here. Tool versions match docs/ONBOARDING.md:
+# no commit hashes are vendored here. Tool versions match the source-build docs:
 # JDK 17 (Temurin), Android SDK 35, Node 26 for the bridge, pnpm 10.15.1
 # via npx for the plugins, stdlib-only Python 3 for tools/.
 #

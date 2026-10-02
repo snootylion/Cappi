@@ -68,8 +68,7 @@ All notable release-tree changes. The bundle label (`VERSION`) is
 - Root docs: `CHANGELOG.md`, `SECURITY.md`, `CONTRIBUTING.md`, `NOTICE.md`,
   `LICENSE-DECISION.md` (NOASSERTION record + Apache-2.0 proposal,
   unconfirmed), `VERSION`.
-- `docs/ONBOARDING.md`: verified first-run guide (cert generation → token
-  → pin → bridge → plugin staging → watch Settings), Node 26 requirement.
+- `README.md`: first-run setup and compatibility guidance; Node 26 requirement.
 - `tools/smoke-clean-source.sh`: clean-source smoke (extract local source
   archive to a temp dir, re-run bridge tests + tools verification there,
   prove no links to the working tree/install; no Gradle, no full plugin
@@ -80,7 +79,7 @@ All notable release-tree changes. The bundle label (`VERSION`) is
 - Stale `README.md` line calling `plugins/dsh-watch/` a "future … contract
   draft": it is an implemented, tested session-scoped tool.
 - Stale `tools/` scaffold note ("owner TBD … do not scatter scripts").
-- `docs/ONBOARDING.md` claimed bridge Node 20+; bridge requires Node 26+.
+- Corrected the documented bridge Node requirement to Node 26+.
 - Removed unsafe implication that a token is "printed" at startup: routine
   bridge logs print the certificate pin (public pairing material), never
   the token.
