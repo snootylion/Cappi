@@ -29,6 +29,9 @@ dir:plugins/dsh-live-voice/tests/
 dir:plugins/dsh-live-voice/resources/
 except:plugins/dsh-live-voice/resources/bin/
 dir:docs/
+# Owner-supplied, editable Galaxy Watch ring mount: Blender source, its
+# distributable add-on, extracted Python source, instructions and hashes.
+dir:designs/parametric-watch/
 file:README.md
 file:LICENSE
 file:WORKPLAN.md

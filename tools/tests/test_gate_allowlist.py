@@ -169,6 +169,9 @@ class AllowlistTest(unittest.TestCase):
     def test_required_paths_allowlisted(self):
         for rel in (
             "watch-app/gradle/wrapper/gradle-wrapper.jar",
+            "designs/parametric-watch/Watch Ring Designer.blend",
+            "designs/parametric-watch/Watch Ring Designer Add-on.zip",
+            "designs/parametric-watch/addon/watch_ring_designer/geometry.py",
             "watch-app/app/src/main/assets/cappi/README-GATE.md",
             "characters/dot-default/pack.json",
             "characters/cappi-original/pack.json",
@@ -543,6 +546,10 @@ class ReproducibilityTest(unittest.TestCase):
                 names = tf.getnames()
             self.assertIn(
                 "watch-app/gradle/wrapper/gradle-wrapper.jar", names)
+            self.assertIn(
+                "designs/parametric-watch/Watch Ring Designer.blend", names)
+            self.assertIn(
+                "designs/parametric-watch/Watch Ring Designer Add-on.zip", names)
             self.assertFalse(any(n.endswith("/token") or n.endswith(".pem")
                                  for n in names),
                              "no secret-named members in archive")

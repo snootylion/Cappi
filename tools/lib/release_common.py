@@ -295,15 +295,18 @@ FILENAME_RULES = [
 ]
 
 # Required shippable binaries: exact tree-relative paths that are allowed
-# despite looking like binaries. The Gradle wrapper jar is build tooling
-# the wrapper needs; it is NOT a secret, weight, or private asset.
+# despite looking like binaries. The Gradle wrapper is build tooling; the
+# Blender scene and add-on archive are owner-supplied editable watch-mount
+# design sources, hash-recorded in designs/parametric-watch/SHA256SUMS.
 REQUIRED_BINARIES = {
     "watch-app/gradle/wrapper/gradle-wrapper.jar",
+    "designs/parametric-watch/Watch Ring Designer.blend",
+    "designs/parametric-watch/Watch Ring Designer Add-on.zip",
 }
 
 # Binary extensions that are unexpected anywhere else in source.
 UNEXPECTED_BINARY_RE = re.compile(
-    r"\.(jar|aar|apk|aab|so|dylib|dex|zip|tar\.gz|tgz)$", re.IGNORECASE)
+    r"\.(jar|aar|apk|aab|so|dylib|dex|zip|blend|tar\.gz|tgz)$", re.IGNORECASE)
 
 # Content rules: (category, pattern, description). Only the file path and
 # the count are reported — matched text is NEVER echoed (see redact()).

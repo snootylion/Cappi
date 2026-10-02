@@ -206,7 +206,9 @@ else
   SOURCE_EPOCH="$EPOCH" python3 - <<'PY'
 import gzip, os, tarfile
 root = os.environ['EPOCH_ROOT']
-names = open(os.environ['EPOCH_LIST'], encoding='utf-8').read().split()
+# The allowlist is newline-delimited: preserve valid source paths containing
+# spaces rather than treating whitespace as a filename separator.
+names = open(os.environ['EPOCH_LIST'], encoding='utf-8').read().splitlines()
 epoch = int(os.environ['SOURCE_EPOCH'])
 with open(os.environ['EPOCH_OUT'], 'wb') as raw:
     with gzip.GzipFile(filename='', fileobj=raw, mode='wb',
