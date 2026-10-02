@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Fake xcrun for installer --apply tests: Pretends to compile the Swift
+# helper by writing a stub executable to the `-o` output path. Never touches
+# a real toolchain or the network.
+set -eu
+output=""
+previous=""
+for argument in "$@"; do
+  if [[ "$previous" == "-o" ]]; then
+    output="$argument"
+  fi
+  previous="$argument"
+done
+if [[ -z "$output" ]]; then
+  printf 'fake-xcrun: no -o output in: %s\n' "$*" >&2
+  exit 2
+fi
+printf '#!/bin/sh\nexit 0\n' > "$output"
+chmod 755 "$output"

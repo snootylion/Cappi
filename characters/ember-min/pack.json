@@ -1,0 +1,42 @@
+{
+  "schema_version": 2,
+  "pack": "ember-min",
+  "version": "1.0.0",
+  "author": "wear-dsh release contributors",
+  "attribution": "Original hand-authored vector frames created for the wear-dsh release; no third-party art.",
+  "license": "CC0-1.0",
+  "dimensions": { "width": 64, "height": 64 },
+  "background": "#000000",
+  "actions": [
+    { "id": "idle_a", "mode": "neutral_loop", "clips": ["ember_idle_a.xml"], "model_selectable": true, "notes": "Ember square, dim" },
+    { "id": "idle_b", "mode": "neutral_loop", "clips": ["ember_idle_b.xml"], "model_selectable": true, "notes": "Ember square, bright" },
+    { "id": "idle_c", "mode": "neutral_loop", "clips": ["ember_idle_c.xml"], "model_selectable": true, "notes": "Ember square, outline" },
+    { "id": "listen", "mode": "neutral_loop", "clips": ["ember_listen.xml"], "model_selectable": true, "notes": "Ember with ear tick" },
+    { "id": "talk", "mode": "once", "clips": ["ember_talk.xml"], "model_selectable": true, "notes": "Ember speech bars" },
+    { "id": "work_set", "mode": "enter_loop_exit", "clips": ["ember_work_enter.xml", "ember_work_loop.xml", "ember_work_exit.xml"], "model_selectable": true, "notes": "Ember task lifecycle" },
+    { "id": "question", "mode": "once", "clips": ["ember_question.xml"], "model_selectable": false, "notes": "State-owned pending-question cue" },
+    { "id": "static_hold", "mode": "hold", "clips": ["ember_static.xml"], "model_selectable": false, "notes": "Static reference interstitial" }
+  ],
+  "clips": {
+    "ember_idle_a.xml": { "width": 64, "height": 64, "duration_s": 3.0 },
+    "ember_idle_b.xml": { "width": 64, "height": 64, "duration_s": 3.0 },
+    "ember_idle_c.xml": { "width": 64, "height": 64, "duration_s": 3.0 },
+    "ember_listen.xml": { "width": 64, "height": 64, "duration_s": 3.0 },
+    "ember_talk.xml": { "width": 64, "height": 64, "duration_s": 3.0 },
+    "ember_work_enter.xml": { "width": 64, "height": 64, "duration_s": 1.5 },
+    "ember_work_loop.xml": { "width": 64, "height": 64, "duration_s": 1.0 },
+    "ember_work_exit.xml": { "width": 64, "height": 64, "duration_s": 1.5 },
+    "ember_question.xml": { "width": 64, "height": 64, "duration_s": 3.0 },
+    "ember_static.xml": { "width": 64, "height": 64, "duration_s": 3.0 }
+  },
+  "roles": {
+    "idle": ["idle_a", "idle_b", "idle_c"],
+    "listen": ["listen"],
+    "talk": ["talk"],
+    "work": ["work_set"],
+    "question": ["question"],
+    "neutral_hold": ["static_hold"]
+  },
+  "fallback_role": "idle",
+  "notes": "Sparse example: no celebrate and no work_talk roles, so both fall back (celebrate to idle motion, work speech to standing talk)."
+}

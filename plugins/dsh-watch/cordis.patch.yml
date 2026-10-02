@@ -1,0 +1,27 @@
+- insert:
+    - id: watch
+      name: dsh-watch
+      config:
+        # Turnkey default: managed in-process runtime. Empty config activates
+        # fully when the LiveVoice `liveVoiceWatch` service is present — no
+        # watchSessionId/token/env required. The managed HTTPS server uses an
+        # ephemeral port (never a fixed default) with a stable cert under
+        # <profile>/dsh-watch/turnkey/ (0600/0700).
+        bridgeMode: "managed"
+        # Optional static session override (advanced). Empty (default) uses
+        # the automatic device binding (watch select-session / auto-follow →
+        # GET /watch/binding → exec.agent.id match). When set and it
+        # disagrees with the device binding, the disagreement is logged and
+        # the call fails closed.
+        watchSessionId: ""
+        # Optional display name shown on the watch pair screen.
+        # serverDisplayName: "DSH Turnkey"
+        # Advanced legacy path (explicit out-of-process bridge). NOT default.
+        # bridgeMode: "legacy"
+        # bridgeBaseUrl: "https://127.0.0.1:8787"
+        # bridgeCertPin: "sha256/…"
+        # bridgeTokenPath: ~/.dsh/dsh-watch/bridge/token
+        # Optional character manifest for an extra fail-closed gate.
+        # manifestPath: characters/example-pack/pack.json
+        allowInsecureLan: false
+        timeoutMs: 8000

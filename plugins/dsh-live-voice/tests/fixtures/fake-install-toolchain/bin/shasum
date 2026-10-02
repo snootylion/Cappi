@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Fake toolchain no-ops for installer --apply tests (plutil, codesign,
+# shasum). Each records its invocation for assertions, then succeeds without
+# verifying anything real.
+set -eu
+name="$(basename "$0")"
+if [[ -n "${FAKE_TOOLCHAIN_LOG_DIR:-}" ]]; then
+  mkdir -p "$FAKE_TOOLCHAIN_LOG_DIR"
+  printf '%s\n' "$*" >> "$FAKE_TOOLCHAIN_LOG_DIR/$name.log"
+fi
+exit 0

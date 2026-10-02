@@ -1,0 +1,379 @@
+{
+  "schema_version": 2,
+  "pack": "cappi-original",
+  "version": "1.0.0",
+  "author": "wear-dsh release contributors",
+  "attribution": "Original Cappi character art; rights holder confirmed ownership and approved Apache-2.0 release. Third-party SDKs and model weights retain their own terms.",
+  "license": "Apache-2.0",
+  "dimensions": {
+    "width": 98,
+    "height": 98
+  },
+  "background": "#000000",
+  "actions": [
+    {
+      "id": "idle1_a",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle1_a.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 1 part 1 (0-4s)"
+    },
+    {
+      "id": "idle1_b",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle1_b.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 1 part 2 (4-7s)"
+    },
+    {
+      "id": "idle1_c",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle1_c.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 1 part 3 (7-11s)"
+    },
+    {
+      "id": "idle1_d",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle1_d.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 1 part 4 (11s-end)"
+    },
+    {
+      "id": "idle2_a",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle2_a.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 2 part 1 (0-2s)"
+    },
+    {
+      "id": "idle2_b",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle2_b.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 2 part 2 (2-4.25s)"
+    },
+    {
+      "id": "idle2_c",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle2_c.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 2 part 3 (4.25-6.75s)"
+    },
+    {
+      "id": "idle2_d",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle2_d.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 2 part 4 (6.75-10.25s)"
+    },
+    {
+      "id": "idle2_e",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle2_e.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 2 part 5 (10.25s-end)"
+    },
+    {
+      "id": "breath",
+      "mode": "neutral_loop",
+      "clips": [
+        "breath.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Breathing"
+    },
+    {
+      "id": "breath2",
+      "mode": "neutral_loop",
+      "clips": [
+        "breath2.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Breathing variant"
+    },
+    {
+      "id": "relaxed",
+      "mode": "neutral_loop",
+      "clips": [
+        "relaxed.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Relaxed breath"
+    },
+    {
+      "id": "talk2",
+      "mode": "once",
+      "clips": [
+        "talk2.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Talking variant 2"
+    },
+    {
+      "id": "talk3",
+      "mode": "once",
+      "clips": [
+        "talk3.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Talking variant 3"
+    },
+    {
+      "id": "talk_gesture",
+      "mode": "once",
+      "clips": [
+        "talk_gesture.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Talking with arm gesture"
+    },
+    {
+      "id": "dance",
+      "mode": "once",
+      "clips": [
+        "dance.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Celebratory dance emote"
+    },
+    {
+      "id": "shadow",
+      "mode": "once",
+      "clips": [
+        "shadow.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Celebratory shadowboxing emote"
+    },
+    {
+      "id": "work",
+      "mode": "enter_loop_exit",
+      "clips": [
+        "laptop_enter.gif",
+        "laptop_work.gif",
+        "laptop_exit.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Laptop work set; one-second typing loop with exact original endpoint pose; exit only from loop-start pose"
+    },
+    {
+      "id": "work_talk",
+      "mode": "enter_loop_exit",
+      "clips": [
+        "laptop_talk_enter.gif",
+        "laptop_talk_loop.gif",
+        "laptop_talk_exit.gif"
+      ],
+      "model_selectable": false,
+      "notes": "Automatic speech while working: laptop-working pose -> look up -> talking loop -> laptop-working pose; not a neutral-body action"
+    },
+    {
+      "id": "question",
+      "mode": "once",
+      "clips": [
+        "question.gif"
+      ],
+      "model_selectable": false,
+      "notes": "Automatic unseen-question cue: neutral entry, play once and hold final frame; tap anywhere opens pending menu; resume neutral after review, no exit clip"
+    },
+    {
+      "id": "static_hold",
+      "mode": "hold",
+      "clips": [
+        "cappi_static.gif"
+      ],
+      "model_selectable": false,
+      "notes": "Static reference interstitial"
+    }
+  ],
+  "clips": {
+    "breath.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 5.08
+    },
+    "breath2.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 5.08
+    },
+    "cappi_static.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 0.04
+    },
+    "dance.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 6.07
+    },
+    "idle1_a.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 4.0
+    },
+    "idle1_b.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 3.0
+    },
+    "idle1_c.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 4.0
+    },
+    "idle1_d.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 4.08
+    },
+    "idle2_a.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 2.0
+    },
+    "idle2_b.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 2.25
+    },
+    "idle2_c.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 2.5
+    },
+    "idle2_d.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 3.5
+    },
+    "idle2_e.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 4.83
+    },
+    "laptop_enter.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 3.25
+    },
+    "laptop_exit.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 3.25
+    },
+    "laptop_talk_enter.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 1.83
+    },
+    "laptop_talk_exit.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 1.83
+    },
+    "laptop_talk_loop.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 6.58
+    },
+    "laptop_work.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 1.0
+    },
+    "question.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 4.04
+    },
+    "relaxed.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 5.08
+    },
+    "shadow.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 5.07
+    },
+    "talk2.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 4.08
+    },
+    "talk3.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 5.08
+    },
+    "talk_gesture.gif": {
+      "width": 98,
+      "height": 98,
+      "duration_s": 7.08
+    }
+  },
+  "roles": {
+    "idle": [
+      "breath",
+      "breath2",
+      "idle1_a",
+      "idle1_b",
+      "idle1_c",
+      "idle1_d",
+      "idle2_a",
+      "idle2_b",
+      "idle2_c",
+      "idle2_d",
+      "idle2_e",
+      "relaxed"
+    ],
+    "listen": [
+      "breath",
+      "breath2",
+      "relaxed"
+    ],
+    "talk": [
+      "talk2",
+      "talk3",
+      "talk_gesture"
+    ],
+    "work": [
+      "work"
+    ],
+    "work_talk": [
+      "work_talk"
+    ],
+    "celebrate": [
+      "dance",
+      "shadow"
+    ],
+    "question": [
+      "question"
+    ],
+    "neutral_hold": [
+      "static_hold"
+    ]
+  },
+  "fallback_role": "idle",
+  "notes": "Canonical schema-v2 conversion of the original v1 Cappi manifest (filenames, actions, modes and role assignments preserved; question/work_talk stay state-owned). Clean-checkout default: the behavior users tested."
+}

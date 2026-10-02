@@ -1,0 +1,22 @@
+{
+  "helper": "watch-asr",
+  "source": "resources/watch-asr.swift",
+  "sourceSha256": "25b70b0b44df31cadb3ceda8865688886631e73d81dfbde6bf4cd0d14ca840d6",
+  "plist": "resources/watch-asr-Info.plist",
+  "plistSha256": "dd8fb0dc29ce09265eb70fd9b911ce2733a22a2957ee960a3930944cf3961508",
+  "binary": "resources/bin/watch-asr",
+  "binarySha256": "76991f7a273640f08766fe7dd105d354b72dfb8b0ddf2a150ecf620dca0756f2",
+  "architectures": "x86_64 arm64",
+  "universal": 1,
+  "minOS": "13.0",
+  "minOSSeen": "minos 13.0 ",
+  "sdk": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk",
+  "toolchain": "swift-driver version: 1.148.6 Apple Swift version 6.3.2 (swiftlang-6.3.2.1.108 clang-2100.1.1.101)",
+  "codesign": "ad-hoc (codesign -s -, no private key)",
+  "codesignIdentifier": "ai.deepseek.dsh.watch-asr",
+  "usagePlist": "resources/watch-asr-Info.plist (NSMicrophoneUsageDescription, NSSpeechRecognitionUsageDescription)",
+  "plistEmbedded": true,
+  "matrix": "universal arm64+x86_64 at minOS 13.0",
+  "noEmbeddedUserConfig": true,
+  "builtAt": "2026-10-01T08:59:52Z"
+}

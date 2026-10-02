@@ -1,0 +1,5 @@
+{
+  "base": "https://bridge-host:8787",
+  "certificate_pin": "sha256/REDACTED_BASE64_SHA256_OF_BRIDGE_CERT_DER",
+  "note": "Pin is public pairing material printed by the bridge at startup. The token itself is never stored in a fixture."
+}

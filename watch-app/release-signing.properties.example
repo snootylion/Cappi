@@ -1,0 +1,8 @@
+# Release signing (external only — never commit real values).
+# Copy to release-signing.properties next to the root build.gradle, or export
+# the same names as environment variables. All four are required; if any is
+# missing the release build stays unsigned.
+RELEASE_STORE_FILE=/absolute/path/to/release.keystore
+RELEASE_STORE_PASSWORD=
+RELEASE_KEY_ALIAS=
+RELEASE_KEY_PASSWORD=

@@ -1,0 +1,140 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+    id 'org.jetbrains.kotlin.plugin.compose'
+}
+
+android {
+    namespace 'dev.dsh.watch'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'dev.dsh.watch'
+        minSdk 30
+        targetSdk 35
+        versionCode 3
+        versionName '0.3.0-rc0'
+        // Instrumented render validation (Role X): the probe Activity lives in
+        // the debug source set and the assertions in src/androidTest. Both are
+        // absent from release builds; clean checkouts resolve these pinned
+        // test-only artifacts from google()/mavenCentral() like any other dep.
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+
+    // Debug builds use the standard auto-generated debug key
+    // (~/.android/debug.keystore, created by the Android SDK tools on first
+    // use), so a clean checkout builds with no checked-in keystore and no
+    // passwords in version control. A previous workspace-local debug.keystore
+    // + hardcoded password hack was removed (it broke clean checkouts — the
+    // file was never committed).
+    //
+    // Release signing comes ONLY from external configuration that is never
+    // committed: either a `release-signing.properties` file next to the root
+    // build.gradle (see release-signing.properties.example, gitignored) or
+    // the matching RELEASE_* environment variables. Without either, the
+    // release build stays unsigned.
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions { jvmTarget = '17' }
+
+    signingConfigs {
+        def props = new Properties()
+        def propsFile = rootProject.file('release-signing.properties')
+        if (propsFile.exists()) {
+            propsFile.withInputStream { props.load(it) }
+        }
+        def storeFileValue = props.getProperty('RELEASE_STORE_FILE') ?: System.getenv('RELEASE_STORE_FILE')
+        def storePasswordValue = props.getProperty('RELEASE_STORE_PASSWORD') ?: System.getenv('RELEASE_STORE_PASSWORD')
+        def keyAliasValue = props.getProperty('RELEASE_KEY_ALIAS') ?: System.getenv('RELEASE_KEY_ALIAS')
+        def keyPasswordValue = props.getProperty('RELEASE_KEY_PASSWORD') ?: System.getenv('RELEASE_KEY_PASSWORD')
+        if (storeFileValue && storePasswordValue && keyAliasValue && keyPasswordValue) {
+            release {
+                storeFile file(storeFileValue)
+                storePassword storePasswordValue
+                keyAlias keyAliasValue
+                keyPassword keyPasswordValue
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            // Default debug signing (auto-generated key). Nothing to declare.
+        }
+        release {
+            minifyEnabled false
+            def releaseCfg = signingConfigs.findByName('release')
+            if (releaseCfg != null && releaseCfg.storeFile != null) {
+                signingConfig releaseCfg
+            }
+        }
+    }
+    lint {
+        // Honest baseline, not hidden failures: errors break the build, and
+        // known-accepted findings are recorded in lint-baseline.xml with a
+        // justification each (see docs/devices.md §Lint). An empty baseline
+        // file means "no accepted findings yet".
+        // Release builds ARE lint-gated (AGP default checkReleaseBuilds=true):
+        // lint runs explicitly as lintDebug + lintRelease in the release gate
+        // and also as part of assembleRelease. No opt-out.
+        abortOnError true
+        baseline = file('lint-baseline.xml')
+    }
+    packaging {
+        resources.excludes += ['META-INF/AL2.0', 'META-INF/LGPL2.1']
+    }
+    // Fresh isolated TLS fixture belongs only to the instrumentation APK.
+    sourceSets.androidTest.assets.srcDir(layout.buildDirectory.dir('generated/sdwTestAssets'))
+}
+
+// Never commit a private test key or embed it in release/main assets. JDK 17
+// generates a new self-contained fixture in ignored build output on clean builds.
+def sdwTestAssets = layout.buildDirectory.dir('generated/sdwTestAssets')
+def generateSdwTestTls = tasks.register('generateSdwTestTls') {
+    outputs.dir(sdwTestAssets)
+    doLast {
+        def dir = sdwTestAssets.get().asFile
+        dir.mkdirs()
+        def store = new File(dir, 'sdw-fixture.p12')
+        if (!store.exists()) {
+            exec {
+                commandLine new File(System.getProperty('java.home'), 'bin/keytool').absolutePath,
+                    '-J-Dkeystore.pkcs12.keyProtectionAlgorithm=PBEWithSHA1AndDESede',
+                    '-J-Dkeystore.pkcs12.certProtectionAlgorithm=PBEWithSHA1AndRC2_40',
+                    '-J-Dkeystore.pkcs12.macAlgorithm=HmacPBESHA1',
+                    '-genkeypair', '-alias', 'sdw-fixture', '-keyalg', 'RSA', '-keysize', '2048',
+                    '-storetype', 'PKCS12', '-keystore', store.absolutePath,
+                    '-storepass', 'fixture-only', '-keypass', 'fixture-only',
+                    '-validity', '30', '-dname', 'CN=SDW isolated fixture', '-noprompt'
+            }
+        }
+    }
+}
+tasks.configureEach {
+    if (name.contains('AndroidTest') || name == 'testDebugUnitTest') {
+        dependsOn(generateSdwTestTls)
+    }
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+
+    implementation 'androidx.wear.compose:compose-material:1.4.1'
+    implementation 'androidx.wear.compose:compose-foundation:1.4.1'
+    implementation 'androidx.wear.compose:compose-navigation:1.4.1'
+    implementation 'androidx.wear:wear:1.3.0'
+
+    implementation 'androidx.core:core-ktx:1.15.0'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.9.4'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4'
+    implementation 'androidx.activity:activity-compose:1.10.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
+
+    // Instrumented render tests only (debug APK under test; never in release).
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    androidTestImplementation 'androidx.test:rules:1.6.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.3.0'
+}

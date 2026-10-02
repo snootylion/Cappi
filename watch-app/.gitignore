@@ -1,0 +1,2 @@
+# Local-only signing configuration (never commit).
+release-signing.properties

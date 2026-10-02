@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Debug probe overlay view id (Role X instrumented render validation). -->
+    <item name="probe_status" type="id" />
+</resources>

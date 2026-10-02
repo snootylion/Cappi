@@ -1,0 +1,42 @@
+{
+  "schema_version": 2,
+  "pack": "example-pack",
+  "version": "1.0.0",
+  "author": "wear-dsh release contributors",
+  "attribution": "Original hand-authored vector frames created for the wear-dsh release; no third-party art.",
+  "license": "CC0-1.0",
+  "dimensions": { "width": 64, "height": 64 },
+  "background": "#000000",
+  "actions": [
+    { "id": "idle_a", "mode": "neutral_loop", "clips": ["example_idle_a.xml"], "model_selectable": true, "notes": "Authoring example: resting frame A" },
+    { "id": "idle_b", "mode": "neutral_loop", "clips": ["example_idle_b.xml"], "model_selectable": true, "notes": "Authoring example: resting frame B" },
+    { "id": "idle_c", "mode": "neutral_loop", "clips": ["example_idle_c.xml"], "model_selectable": true, "notes": "Authoring example: resting frame C" },
+    { "id": "listen", "mode": "neutral_loop", "clips": ["example_listen.xml"], "model_selectable": true, "notes": "Authoring example: input-live loop" },
+    { "id": "talk", "mode": "once", "clips": ["example_talk.xml"], "model_selectable": true, "notes": "Authoring example: speech motion" },
+    { "id": "work_set", "mode": "enter_loop_exit", "clips": ["example_work_enter.xml", "example_work_loop.xml", "example_work_exit.xml"], "model_selectable": true, "notes": "Authoring example: task lifecycle" },
+    { "id": "question", "mode": "once", "clips": ["example_question.xml"], "model_selectable": false, "notes": "State-owned pending-question cue" },
+    { "id": "static_hold", "mode": "hold", "clips": ["example_static.xml"], "model_selectable": false, "notes": "Static reference interstitial" }
+  ],
+  "clips": {
+    "example_idle_a.xml": { "width": 64, "height": 64, "duration_s": 3.0 },
+    "example_idle_b.xml": { "width": 64, "height": 64, "duration_s": 3.0 },
+    "example_idle_c.xml": { "width": 64, "height": 64, "duration_s": 3.0 },
+    "example_listen.xml": { "width": 64, "height": 64, "duration_s": 3.0 },
+    "example_talk.xml": { "width": 64, "height": 64, "duration_s": 3.0 },
+    "example_work_enter.xml": { "width": 64, "height": 64, "duration_s": 1.5 },
+    "example_work_loop.xml": { "width": 64, "height": 64, "duration_s": 1.0 },
+    "example_work_exit.xml": { "width": 64, "height": 64, "duration_s": 1.5 },
+    "example_question.xml": { "width": 64, "height": 64, "duration_s": 3.0 },
+    "example_static.xml": { "width": 64, "height": 64, "duration_s": 3.0 }
+  },
+  "roles": {
+    "idle": ["idle_a", "idle_b", "idle_c"],
+    "listen": ["listen"],
+    "talk": ["talk"],
+    "work": ["work_set"],
+    "question": ["question"],
+    "neutral_hold": ["static_hold"]
+  },
+  "fallback_role": "idle",
+  "notes": "Valid schema-v2 authoring example (sparse: no celebrate/work_talk, both fall back safely). Not shipped in the app asset mirror and not in registry.json; copy this shape to author a new pack — no scheduler or resource-registration edits needed."
+}

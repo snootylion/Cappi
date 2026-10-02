@@ -1,0 +1,86 @@
+# Secrets, keys, credentials — never commit
+**/token
+**/.credentials.yaml
+**/*.keystore
+**/*.jks
+**/*.p12
+**/*.pem
+local.properties
+**/local.properties
+release-signing.properties
+**/release-signing.properties
+.env
+.env.*
+
+# Private local Cappi parity restores (never ship) — the gate README is
+# the only file allowed in that directory.
+watch-app/app/src/main/assets/cappi/*
+!watch-app/app/src/main/assets/cappi/README-GATE.md
+
+# Bridge runtime state (token file, certs, images) lives outside the tree
+bridge/bin/
+
+# Descent: private staging / provenance metadata lives outside this tree
+.release-work/
+
+# Private execution reports (local packaging notes) — never commit/ship
+REPORT-*.md
+
+# Build outputs
+**/build/
+**/out/
+**/.gradle/
+**/.gradle-home/
+.gradle-home/
+**/.kotlin/
+**/lib/
+# Narrow exception: release-tooling sources ship (contributors must not
+# need `git add -f` for them). The directory itself is re-included first
+# because git cannot re-include files under an excluded directory.
+!tools/lib/
+!tools/lib/*.py
+**/dist/
+**/node_modules/
+**/.pnpm-store/
+
+# Model weights and downloaded runtimes (never commit)
+**/*.bin
+**/*.safetensors
+**/*.onnx
+**/*.mlmodelc/
+**/*.mlpackage/
+kokoro/
+pocket-tts/
+summary/
+**/kokoro-82M*/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Logs, recordings, transcripts, screenshots
+*.log
+*.wav
+*.mp3
+*.m4a
+*.png
+*.jpg
+*.mp4
+*.jsonl
+
+# Release artifacts (APKs, AABs, archives) — distributed separately
+*.apk
+*.aab
+*.sha256
+*.zip
+*.tar.gz
+*.tgz
+
+# OS / editor
+.DS_Store
+.idea/
+*.iml
+.vscode/*
+!.vscode/extensions.json

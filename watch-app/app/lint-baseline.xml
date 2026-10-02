@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.9.3" type="baseline" client="gradle" dependencies="false" name="AGP (8.9.3)" variant="all" version="8.9.3">
+
+    <issue
+        id="ImplicitSamInstance"
+        message="This argument is a new instance so `stopService` will not remove anything"
+        errorLine1="            context.stopService(Intent(context, VoiceService::class.java))"
+        errorLine2="                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/dev/dsh/watch/service/VoiceService.kt"
+            line="291"
+            column="33"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.wear.compose:compose-material than 1.4.1 is available: 1.7.0"
+        errorLine1="    implementation &apos;androidx.wear.compose:compose-material:1.4.1&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="86"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.wear.compose:compose-foundation than 1.4.1 is available: 1.7.0"
+        errorLine1="    implementation &apos;androidx.wear.compose:compose-foundation:1.4.1&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="87"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.wear.compose:compose-navigation than 1.4.1 is available: 1.7.0"
+        errorLine1="    implementation &apos;androidx.wear.compose:compose-navigation:1.4.1&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="88"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.wear:wear than 1.3.0 is available: 1.4.0"
+        errorLine1="    implementation &apos;androidx.wear:wear:1.3.0&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="89"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.core:core-ktx than 1.15.0 is available: 1.19.1"
+        errorLine1="    implementation &apos;androidx.core:core-ktx:1.15.0&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="91"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-runtime-ktx than 2.9.4 is available: 2.11.0"
+        errorLine1="    implementation &apos;androidx.lifecycle:lifecycle-runtime-ktx:2.9.4&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="92"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.lifecycle:lifecycle-viewmodel-compose than 2.9.4 is available: 2.11.0"
+        errorLine1="    implementation &apos;androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="93"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        message="A newer version of androidx.activity:activity-compose than 1.10.1 is available: 1.13.0"
+        errorLine1="    implementation &apos;androidx.activity:activity-compose:1.10.1&apos;"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="build.gradle"
+            line="94"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="DiscouragedApi"
+        message="Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(&quot;bar&quot;, &quot;foo&quot;, null)`)."
+        errorLine1="        val resId = context.resources.getIdentifier("
+        errorLine2="                                      ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/dev/dsh/watch/ui/AvatarScreen.kt"
+            line="353"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="DiscouragedApi"
+        message="Use of this function is discouraged because resource reflection makes it harder to perform build optimizations and compile-time verification of code. It is much more efficient to retrieve resources by identifier (e.g. `R.foo.bar`) than by name (e.g. `getIdentifier(&quot;bar&quot;, &quot;foo&quot;, null)`)."
+        errorLine1="        val resId = context.resources.getIdentifier("
+        errorLine2="                                      ~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/dev/dsh/watch/ui/AvatarScreen.kt"
+            line="370"
+            column="39"/>
+    </issue>
+
+    <issue
+        id="CustomX509TrustManager"
+        message="Implementing a custom `X509TrustManager` is error-prone and likely to be insecure. It is likely to disable certificate validation altogether, and is non-trivial to implement correctly without calling Android&apos;s default implementation."
+        errorLine1="        return object : X509TrustManager {"
+        errorLine2="               ~~~~~~">
+        <location
+            file="src/main/java/dev/dsh/watch/net/SecureTransport.kt"
+            line="111"
+            column="16"/>
+    </issue>
+
+    <issue
+        id="DataExtractionRules"
+        message="The attribute `android:allowBackup` is deprecated from Android 12 and higher and may be removed in future versions. Consider adding the attribute `android:dataExtractionRules` specifying an `@xml` resource which configures cloud backups and device transfers on Android 12 and higher."
+        errorLine1="        android:allowBackup=&quot;false&quot;>"
+        errorLine2="                             ~~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="22"
+            column="30"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.dot_celebrate` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;96dp&quot; android:height=&quot;96dp&quot; android:viewportWidth=&quot;96&quot; android:viewportHeight=&quot;96&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/dot_celebrate.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.dot_idle_a` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;96dp&quot; android:height=&quot;96dp&quot; android:viewportWidth=&quot;96&quot; android:viewportHeight=&quot;96&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/dot_idle_a.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.dot_idle_b` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;96dp&quot; android:height=&quot;96dp&quot; android:viewportWidth=&quot;96&quot; android:viewportHeight=&quot;96&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/dot_idle_b.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.dot_idle_c` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;96dp&quot; android:height=&quot;96dp&quot; android:viewportWidth=&quot;96&quot; android:viewportHeight=&quot;96&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/dot_idle_c.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.dot_listen` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;96dp&quot; android:height=&quot;96dp&quot; android:viewportWidth=&quot;96&quot; android:viewportHeight=&quot;96&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/dot_listen.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.dot_question` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;96dp&quot; android:height=&quot;96dp&quot; android:viewportWidth=&quot;96&quot; android:viewportHeight=&quot;96&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/dot_question.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.dot_static` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;96dp&quot; android:height=&quot;96dp&quot; android:viewportWidth=&quot;96&quot; android:viewportHeight=&quot;96&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/dot_static.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.dot_talk_a` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;96dp&quot; android:height=&quot;96dp&quot; android:viewportWidth=&quot;96&quot; android:viewportHeight=&quot;96&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/dot_talk_a.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.dot_talk_b` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;96dp&quot; android:height=&quot;96dp&quot; android:viewportWidth=&quot;96&quot; android:viewportHeight=&quot;96&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/dot_talk_b.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.dot_work_enter` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;96dp&quot; android:height=&quot;96dp&quot; android:viewportWidth=&quot;96&quot; android:viewportHeight=&quot;96&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/dot_work_enter.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.dot_work_exit` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;96dp&quot; android:height=&quot;96dp&quot; android:viewportWidth=&quot;96&quot; android:viewportHeight=&quot;96&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/dot_work_exit.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.dot_work_loop` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;96dp&quot; android:height=&quot;96dp&quot; android:viewportWidth=&quot;96&quot; android:viewportHeight=&quot;96&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/dot_work_loop.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ember_idle_a` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;64dp&quot; android:height=&quot;64dp&quot; android:viewportWidth=&quot;64&quot; android:viewportHeight=&quot;64&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ember_idle_a.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ember_idle_b` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;64dp&quot; android:height=&quot;64dp&quot; android:viewportWidth=&quot;64&quot; android:viewportHeight=&quot;64&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ember_idle_b.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ember_idle_c` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;64dp&quot; android:height=&quot;64dp&quot; android:viewportWidth=&quot;64&quot; android:viewportHeight=&quot;64&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ember_idle_c.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ember_listen` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;64dp&quot; android:height=&quot;64dp&quot; android:viewportWidth=&quot;64&quot; android:viewportHeight=&quot;64&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ember_listen.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ember_question` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;64dp&quot; android:height=&quot;64dp&quot; android:viewportWidth=&quot;64&quot; android:viewportHeight=&quot;64&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ember_question.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ember_static` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;64dp&quot; android:height=&quot;64dp&quot; android:viewportWidth=&quot;64&quot; android:viewportHeight=&quot;64&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ember_static.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ember_talk` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;64dp&quot; android:height=&quot;64dp&quot; android:viewportWidth=&quot;64&quot; android:viewportHeight=&quot;64&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ember_talk.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ember_work_enter` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;64dp&quot; android:height=&quot;64dp&quot; android:viewportWidth=&quot;64&quot; android:viewportHeight=&quot;64&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ember_work_enter.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ember_work_exit` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;64dp&quot; android:height=&quot;64dp&quot; android:viewportWidth=&quot;64&quot; android:viewportHeight=&quot;64&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ember_work_exit.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ember_work_loop` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;64dp&quot; android:height=&quot;64dp&quot; android:viewportWidth=&quot;64&quot; android:viewportHeight=&quot;64&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ember_work_loop.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_check` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_check.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_menu` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_menu.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_plus` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_plus.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_refresh` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_refresh.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="UnusedResources"
+        message="The resource `R.drawable.ic_x` appears to be unused"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:width=&quot;24dp&quot; android:height=&quot;24dp&quot; android:viewportWidth=&quot;24&quot; android:viewportHeight=&quot;24&quot;>"
+        errorLine2="^">
+        <location
+            file="src/main/res/drawable/ic_x.xml"
+            line="1"
+            column="1"/>
+    </issue>
+
+    <issue
+        id="WearRecents"
+        message="Set `taskAffinity` for Wear activities to make them appear correctly in recents"
+        errorLine1="        &lt;activity"
+        errorLine2="        ^">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="27"
+            column="9"/>
+    </issue>
+
+    <issue
+        id="WearRecents"
+        message="Avoid using `FLAG_ACTIVITY_NEW_TASK` and `FLAG_ACTIVITY_CLEAR_TOP`"
+        errorLine1="                                            .addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK))"
+        errorLine2="                                                                             ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/dev/dsh/watch/MainActivity.kt"
+            line="517"
+            column="78"/>
+    </issue>
+
+    <issue
+        id="WearRecents"
+        message="Avoid using `FLAG_ACTIVITY_NEW_TASK` and `FLAG_ACTIVITY_CLEAR_TOP`"
+        errorLine1="                                .addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK))"
+        errorLine2="                                                                 ~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="src/main/java/dev/dsh/watch/MainActivity.kt"
+            line="525"
+            column="66"/>
+    </issue>
+
+</issues>

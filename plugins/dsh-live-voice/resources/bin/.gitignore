@@ -1,0 +1,10 @@
+# Compiled watch-asr helper binaries land here via scripts/build-watch-helpers.sh.
+# Source (resources/watch-asr.swift) ships in git; binaries ship in the npm
+# tar via the `resources` files allowlist but never in git. Unknown binaries
+# are forbidden: every binary here must have a matching row in
+# resources/watch-asr.manifest.json (sha256 + architectures + provenance).
+# (.npmignore is the npm-only counterpart: git still ignores the binary,
+# npm still ships it — see that file.)
+*
+!.gitignore
+!.npmignore

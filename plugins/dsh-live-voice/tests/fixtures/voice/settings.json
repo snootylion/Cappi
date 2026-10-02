@@ -1,0 +1,7 @@
+{
+  "locale": "en-AU",
+  "voice": "af_heart",
+  "endTurnMs": 1750,
+  "speechRate": 1.2,
+  "acknowledgementDelayMs": 0
+}

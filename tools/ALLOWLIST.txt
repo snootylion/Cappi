@@ -1,0 +1,108 @@
+# Source allowlist for reproducible export (tools/export-source.sh).
+#
+# One rule per line. `#` starts a comment, blank lines are ignored.
+#   dir:<prefix>/    include everything under this path prefix
+#   file:<path>      include exactly this file
+#   except:<prefix>  remove a subtree from a previously included dir
+#
+# Everything else — node_modules, build outputs, .git, .release-work,
+# secrets, model weights, logs, private local restores — is excluded even
+# if present in the working tree. Required build binaries that live in
+# source (the Gradle wrapper jar) are listed as explicit file: entries:
+# not every binary is forbidden, only unlisted ones.
+
+dir:bridge/
+except:bridge/bin/
+dir:characters/
+dir:protocol/
+dir:tools/
+dir:watch-app/
+except:watch-app/.gradle/
+except:watch-app/.kotlin/
+except:watch-app/app/build/
+except:watch-app/build/
+except:watch-app/app/src/main/assets/cappi/
+dir:plugins/dsh-watch/src/
+dir:plugins/dsh-watch/tests/
+dir:plugins/dsh-live-voice/src/
+dir:plugins/dsh-live-voice/tests/
+dir:plugins/dsh-live-voice/resources/
+except:plugins/dsh-live-voice/resources/bin/
+dir:docs/
+file:README.md
+file:LICENSE
+file:WORKPLAN.md
+file:CHANGELOG.md
+file:SECURITY.md
+file:CONTRIBUTING.md
+file:NOTICE.md
+file:LICENSE-DECISION.md
+file:VERSION
+file:.gitignore
+file:.github/workflows/ci.yml
+file:tools/VERSION
+file:tools/ALLOWLIST.txt
+file:watch-app/build.gradle
+file:watch-app/settings.gradle
+file:watch-app/gradle.properties
+file:watch-app/gradlew
+file:watch-app/gradlew.bat
+file:watch-app/gradle/wrapper/gradle-wrapper.properties
+file:watch-app/gradle/wrapper/gradle-wrapper.jar
+file:watch-app/app/build.gradle
+file:watch-app/release-signing.properties.example
+file:watch-app/.gitignore
+file:watch-app/app/src/main/assets/cappi/README-GATE.md
+file:watch-app/app/src/main/assets/characters/dot-default/pack.json
+file:watch-app/app/src/main/assets/characters/ember-min/pack.json
+# Licensed Cappi pack (owner-approved Apache-2.0): manifests ship as
+# explicit entries; the 25 GIFs + mirrors ship via the dir: rules above
+# ONLY when manifest-authorized + hash-verified — export-source.sh
+# refuses any un-inventoried or mismatched file in those dirs.
+file:watch-app/app/src/main/assets/characters/cappi-original/pack.json
+file:watch-app/app/src/main/assets/characters/cappi-original/provenance.json
+file:characters/registry.json
+file:characters/README.md
+file:characters/import-local.sh
+file:characters/dot-default/pack.json
+file:characters/ember-min/pack.json
+file:characters/example-pack/pack.json
+file:characters/cappi-original/pack.json
+file:characters/cappi-original/provenance.json
+file:plugins/dsh-watch/package.json
+file:plugins/dsh-watch/pnpm-lock.yaml
+file:plugins/dsh-watch/tsconfig.json
+file:plugins/dsh-watch/tsconfig.client.json
+file:plugins/dsh-watch/tsdown.config.ts
+file:plugins/dsh-watch/scripts/check-character-registry.mjs
+file:plugins/dsh-watch/vitest.config.ts
+file:plugins/dsh-watch/cordis.patch.yml
+file:plugins/dsh-watch/README.md
+file:plugins/dsh-watch/SKILL.md
+file:plugins/dsh-watch/PROVENANCE.md
+file:plugins/dsh-watch/LICENSE
+file:plugins/dsh-watch/NOTICE.md
+file:plugins/dsh-watch/CONTRACT-DRAFT.reference.md
+file:plugins/dsh-live-voice/package.json
+file:plugins/dsh-live-voice/pnpm-lock.yaml
+file:plugins/dsh-live-voice/pnpm-workspace.yaml
+file:plugins/dsh-live-voice/tsconfig.json
+file:plugins/dsh-live-voice/tsconfig.client.json
+file:plugins/dsh-live-voice/tsdown.config.ts
+file:plugins/dsh-live-voice/cordis.patch.yml
+file:plugins/dsh-live-voice/README.md
+file:plugins/dsh-live-voice/README.upstream.md
+file:plugins/dsh-live-voice/IMPORT-NOTES.md
+file:plugins/dsh-live-voice/PROVENANCE.md
+file:plugins/dsh-live-voice/LICENSE
+file:plugins/dsh-live-voice/NOTICE.md
+file:plugins/dsh-live-voice/resources/kokoro-model-sha256.txt
+file:plugins/dsh-live-voice/resources/kokoro-tts-requirements.txt
+file:plugins/dsh-live-voice/resources/kokoro-tts-requirements.lock
+file:plugins/dsh-live-voice/resources/watch-asr.swift
+file:plugins/dsh-live-voice/resources/watch-asr-Info.plist
+file:plugins/dsh-live-voice/resources/watch-asr.manifest.json
+file:plugins/dsh-live-voice/resources/bin/.gitignore
+file:plugins/dsh-live-voice/scripts/build-watch-helpers.sh
+file:protocol/character-pack.schema.json
+file:protocol/transport-endpoints.md

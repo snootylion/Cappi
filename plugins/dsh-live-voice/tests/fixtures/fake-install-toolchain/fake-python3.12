@@ -1,0 +1,74 @@
+#!/usr/bin/env python3
+"""Fake bootstrap Python for installer --apply tests.
+
+Emulates just enough of the `install-live-voice-runtime.sh` toolchain to
+prove the installer stages every required artifact, without compilers,
+venvs, pip, or the network:
+
+- `-m venv DIR`      -> creates DIR/bin/python as a symlink back to this
+                        script (so every later venv-python call re-enters
+                        the fake) plus a minimal pyvenv.cfg.
+- `-m pip ...`       -> succeeds without installing anything.
+- `-c <code>`        -> succeeds (version probe and import smoke probes).
+- stdin script (`-`) -> reads the heredoc: a `snapshot_download` script
+                        materializes the required Kokoro model files under
+                        $DSH_KOKORO_INSTALL_MODEL_PATH; a `TTSModel` script
+                        prints the pocket readiness marker.
+Anything else exits 2 so unexpected toolchain use fails loudly.
+"""
+
+import os
+import sys
+
+
+def main() -> int:
+    argv = sys.argv[1:]
+    if len(argv) >= 2 and argv[0] == "-m" and argv[1] == "venv":
+        return make_venv(argv[2])
+    if len(argv) >= 2 and argv[0] == "-m" and argv[1] == "pip":
+        return 0
+    if len(argv) >= 2 and argv[0] == "-c":
+        return 0
+    if argv == ["-"]:
+        return run_stdin_script()
+    sys.stderr.write(f"fake-python: unexpected invocation: {argv}\n")
+    return 2
+
+
+def make_venv(directory: str) -> int:
+    bin_dir = os.path.join(directory, "bin")
+    os.makedirs(bin_dir, exist_ok=True)
+    link = os.path.join(bin_dir, "python")
+    try:
+        os.symlink(os.path.abspath(__file__), link)
+    except FileExistsError:
+        pass
+    with open(os.path.join(directory, "pyvenv.cfg"), "w", encoding="utf-8") as handle:
+        handle.write("home = fake\ninclude-system-site-packages = false\nversion = 3.12.0\n")
+    return 0
+
+
+def run_stdin_script() -> int:
+    source = sys.stdin.read()
+    if "snapshot_download" in source:
+        model_path = os.environ.get("DSH_KOKORO_INSTALL_MODEL_PATH", "")
+        if not model_path:
+            sys.stderr.write("fake-python: DSH_KOKORO_INSTALL_MODEL_PATH is unset\n")
+            return 2
+        voices = os.path.join(model_path, "voices")
+        os.makedirs(voices, exist_ok=True)
+        for relative in ("config.json", "kokoro-v1_0.safetensors", "voices/af_heart.safetensors"):
+            full = os.path.join(model_path, relative)
+            os.makedirs(os.path.dirname(full), exist_ok=True)
+            with open(full, "w", encoding="utf-8") as handle:
+                handle.write(f"fake-model-artifact:{relative}\n")
+        print("fake-kokoro-model-staged")
+        return 0
+    if "TTSModel" in source:
+        print("pocket-tts-runtime-ready")
+        return 0
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,4 @@
+- insert:
+    - id: live-voice-kokoro
+      name: dsh-live-voice-kokoro
+      config: {}

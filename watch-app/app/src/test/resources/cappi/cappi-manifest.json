@@ -1,0 +1,457 @@
+{
+  "schema_version": 1,
+  "pack": "poc-ai-video-v1",
+  "neutral_state": "neutral.v1",
+  "render_defaults": {
+    "width": 98,
+    "height": 98,
+    "background": "#000000"
+  },
+  "actions": [
+    {
+      "id": "idle1_a",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle1_a.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 1 part 1 (0-4s)"
+    },
+    {
+      "id": "idle1_b",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle1_b.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 1 part 2 (4-7s)"
+    },
+    {
+      "id": "idle1_c",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle1_c.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 1 part 3 (7-11s)"
+    },
+    {
+      "id": "idle1_d",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle1_d.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 1 part 4 (11s-end)"
+    },
+    {
+      "id": "idle2_a",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle2_a.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 2 part 1 (0-2s)"
+    },
+    {
+      "id": "idle2_b",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle2_b.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 2 part 2 (2-4.25s)"
+    },
+    {
+      "id": "idle2_c",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle2_c.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 2 part 3 (4.25-6.75s)"
+    },
+    {
+      "id": "idle2_d",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle2_d.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 2 part 4 (6.75-10.25s)"
+    },
+    {
+      "id": "idle2_e",
+      "mode": "neutral_loop",
+      "clips": [
+        "idle2_e.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Idle pack 2 part 5 (10.25s-end)"
+    },
+    {
+      "id": "breath",
+      "mode": "neutral_loop",
+      "clips": [
+        "breath.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Breathing"
+    },
+    {
+      "id": "breath2",
+      "mode": "neutral_loop",
+      "clips": [
+        "breath2.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Breathing variant"
+    },
+    {
+      "id": "relaxed",
+      "mode": "neutral_loop",
+      "clips": [
+        "relaxed.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Relaxed breath"
+    },
+    {
+      "id": "talk2",
+      "mode": "once",
+      "clips": [
+        "talk2.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Talking variant 2"
+    },
+    {
+      "id": "talk3",
+      "mode": "once",
+      "clips": [
+        "talk3.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Talking variant 3"
+    },
+    {
+      "id": "talk_gesture",
+      "mode": "once",
+      "clips": [
+        "talk_gesture.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Talking with arm gesture"
+    },
+    {
+      "id": "dance",
+      "mode": "once",
+      "clips": [
+        "dance.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Celebratory dance emote"
+    },
+    {
+      "id": "shadow",
+      "mode": "once",
+      "clips": [
+        "shadow.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Celebratory shadowboxing emote"
+    },
+    {
+      "id": "work",
+      "mode": "enter_loop_exit",
+      "clips": [
+        "laptop_enter.gif",
+        "laptop_work.gif",
+        "laptop_exit.gif"
+      ],
+      "model_selectable": true,
+      "notes": "Laptop work set; one-second typing loop with exact original endpoint pose; exit only from loop-start pose"
+    },
+    {
+      "id": "work_talk",
+      "mode": "enter_loop_exit",
+      "clips": [
+        "laptop_talk_enter.gif",
+        "laptop_talk_loop.gif",
+        "laptop_talk_exit.gif"
+      ],
+      "model_selectable": false,
+      "notes": "Automatic speech while working: laptop-working pose -> look up -> talking loop -> laptop-working pose; not a neutral-body action"
+    },
+    {
+      "id": "question",
+      "mode": "once",
+      "clips": [
+        "question.gif"
+      ],
+      "model_selectable": false,
+      "notes": "Automatic unseen-question cue: neutral entry, play once and hold final frame; tap anywhere opens pending menu; resume neutral after review, no exit clip"
+    },
+    {
+      "id": "static_hold",
+      "mode": "hold",
+      "clips": [
+        "cappi_static.gif"
+      ],
+      "model_selectable": false,
+      "notes": "Static reference interstitial"
+    }
+  ],
+  "clips": {
+    "breath.gif": {
+      "file": "breath.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 61,
+      "fps": "25/2",
+      "duration_s": 5.08,
+      "bytes": 258187,
+      "sha256": "573041d456e395f146c5319c3057a681ae3d7023aef72ce37d8fb1d95b78eed3"
+    },
+    "breath2.gif": {
+      "file": "breath2.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 61,
+      "fps": "25/2",
+      "duration_s": 5.08,
+      "bytes": 258756,
+      "sha256": "4feee2f38a8e03b3d6863e4f633080c22d36b1549696aefcac4a1767c34bca16"
+    },
+    "cappi_static.gif": {
+      "file": "cappi_static.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 1,
+      "fps": "100/4",
+      "duration_s": 0.04,
+      "bytes": 4888,
+      "sha256": "cc2497a02b3b5b393a362ba0fc9baf75ac1480bf55c18114a5fa6ecaf9be0861"
+    },
+    "dance.gif": {
+      "file": "dance.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 91,
+      "fps": "50/3",
+      "duration_s": 6.07,
+      "bytes": 370221,
+      "sha256": "db2587a58f66264b414a41c040008f4dec43557791108769c3edbdeb67533005"
+    },
+    "idle1_a.gif": {
+      "file": "idle1_a.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 48,
+      "fps": "25/2",
+      "duration_s": 4.0,
+      "bytes": 203338,
+      "sha256": "052425957e91af83588a853d9db3057c9da23d88081f1b82521287054ed826e8"
+    },
+    "idle1_b.gif": {
+      "file": "idle1_b.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 36,
+      "fps": "25/2",
+      "duration_s": 3.0,
+      "bytes": 148552,
+      "sha256": "222f84a9b5bd9c340933f0765b19c90fd610be011af3ea45bef4a93e6a359303"
+    },
+    "idle1_c.gif": {
+      "file": "idle1_c.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 48,
+      "fps": "25/2",
+      "duration_s": 4.0,
+      "bytes": 199583,
+      "sha256": "5eafff691f5ed5475cb56a65ab9a5242640bdbc6bfb76c560b5157597828b18b"
+    },
+    "idle1_d.gif": {
+      "file": "idle1_d.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 49,
+      "fps": "25/2",
+      "duration_s": 4.08,
+      "bytes": 204571,
+      "sha256": "b0cadb9a58a8012e2b1c737b8e19527388d16ba1bce223998b753773c50ad0fa"
+    },
+    "idle2_a.gif": {
+      "file": "idle2_a.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 24,
+      "fps": "25/2",
+      "duration_s": 2.0,
+      "bytes": 100969,
+      "sha256": "a3d7ed0a5589fa6b9b9826d1ce867092239ff1267f4e9fee0ceb7054211dcbac"
+    },
+    "idle2_b.gif": {
+      "file": "idle2_b.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 27,
+      "fps": "25/2",
+      "duration_s": 2.25,
+      "bytes": 112337,
+      "sha256": "a645c43e2353f06d26ed4e21ceffe991808026d7ed24ae95432812df97c0b57c"
+    },
+    "idle2_c.gif": {
+      "file": "idle2_c.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 30,
+      "fps": "25/2",
+      "duration_s": 2.5,
+      "bytes": 123391,
+      "sha256": "0dcc3812e8ef60038f435cc3defd629b45229f33eb29c32d4d2289f446dadabf"
+    },
+    "idle2_d.gif": {
+      "file": "idle2_d.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 42,
+      "fps": "25/2",
+      "duration_s": 3.5,
+      "bytes": 172134,
+      "sha256": "84b2de0e6b6be1021dffb48f76a9fa0dfdfd470ff8f0a97b64e3e3ac2a581d6f"
+    },
+    "idle2_e.gif": {
+      "file": "idle2_e.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 58,
+      "fps": "25/2",
+      "duration_s": 4.83,
+      "bytes": 238425,
+      "sha256": "6d082190f1b0004936e2fa9b05d0c170a831c6a6836a61a6e3bb43fe106ac1b0"
+    },
+    "laptop_enter.gif": {
+      "file": "laptop_enter.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 39,
+      "fps": "25/2",
+      "duration_s": 3.25,
+      "bytes": 162275,
+      "sha256": "80b989e97ae9fab394eb61981bfa108cef234d2f8d2161a728af0377811c26ac"
+    },
+    "laptop_exit.gif": {
+      "file": "laptop_exit.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 39,
+      "fps": "25/2",
+      "duration_s": 3.25,
+      "bytes": 162275,
+      "sha256": "cb8e10ff24079a9efaaa523ba9232156370726799202801b85f1371f662ab534"
+    },
+    "laptop_talk_enter.gif": {
+      "file": "laptop_talk_enter.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 22,
+      "fps": "25/2",
+      "duration_s": 1.83,
+      "bytes": 83593,
+      "sha256": "4458d2439219b37fbf99728ad618bd4653898c65196b0a72f908f3bf4867aead"
+    },
+    "laptop_talk_exit.gif": {
+      "file": "laptop_talk_exit.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 22,
+      "fps": "25/2",
+      "duration_s": 1.83,
+      "bytes": 83593,
+      "sha256": "6391cc455947ff30ec039bfa0a9e77b5ff93a762922d5ac5eca339409612fd34"
+    },
+    "laptop_talk_loop.gif": {
+      "file": "laptop_talk_loop.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 79,
+      "fps": "25/2",
+      "duration_s": 6.58,
+      "bytes": 302136,
+      "sha256": "a533bf870d06e66fade143c4efb2b962aca0c49c03b5acd338bd82bf346a1e19"
+    },
+    "laptop_work.gif": {
+      "file": "laptop_work.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 12,
+      "fps": "25/2",
+      "duration_s": 1.0,
+      "bytes": 46071,
+      "sha256": "193eb99c6d2af445b7c6a458357a0fd58107f2f86d134d70e439e3f646feda02"
+    },
+    "question.gif": {
+      "file": "question.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 49,
+      "fps": "25/2",
+      "duration_s": 4.04,
+      "bytes": 186348,
+      "sha256": "9ee23d0ac33005648146839c1857d637b5d23150ae48c8f26247a08dd1381853"
+    },
+    "relaxed.gif": {
+      "file": "relaxed.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 61,
+      "fps": "25/2",
+      "duration_s": 5.08,
+      "bytes": 259231,
+      "sha256": "6582136cb962892f2e7265f532b1a17ef5e59add78333f2aa65023f77c90ded7"
+    },
+    "shadow.gif": {
+      "file": "shadow.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 76,
+      "fps": "50/3",
+      "duration_s": 5.07,
+      "bytes": 318952,
+      "sha256": "6293919dad687771fc1994f2df3bd66ee50e62919a04b827d4cb3c966ea54c3c"
+    },
+    "talk2.gif": {
+      "file": "talk2.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 49,
+      "fps": "25/2",
+      "duration_s": 4.08,
+      "bytes": 208938,
+      "sha256": "db29c9c17daaef4a998c83dc80147613b88d991dd43495e26b45b4336c25c0b6"
+    },
+    "talk3.gif": {
+      "file": "talk3.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 61,
+      "fps": "25/2",
+      "duration_s": 5.08,
+      "bytes": 261144,
+      "sha256": "3a200c274d58a1901fdb67e8fa61f3c4f6fd01ddea9a58640f241d4097c50438"
+    },
+    "talk_gesture.gif": {
+      "file": "talk_gesture.gif",
+      "width": 98,
+      "height": 98,
+      "frames": 85,
+      "fps": "25/2",
+      "duration_s": 7.08,
+      "bytes": 361708,
+      "sha256": "46c77f51a89cc5e45ffb60f80be3a0d905dfc3583dc18ecdfa33f0995a149309"
+    }
+  }
+}

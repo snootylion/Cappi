@@ -1,0 +1,297 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://dev.dsh.watch/protocol/turnkey.schema.json",
+  "title": "turnkey",
+  "description": "Turnkey pairing + session-binding + audio-state DTOs (schema v1, turnkey contributor owns). Normative companion to docs/TURNKEY-CONTRACT.md. All tokens/pins/secrets are redacted in fixtures (shape only, no values). Error/code strings are stable contracts; unknown future codes must be surfaced, never silently defaulted.",
+  "type": "object",
+  "required": ["schema_version"],
+  "properties": {
+    "schema_version": { "type": "number", "const": 1 },
+    "pairingState": { "$ref": "#/definitions/pairingState" },
+    "pairInfo": { "$ref": "#/definitions/pairInfo" },
+    "enrollmentRequest": { "$ref": "#/definitions/enrollmentRequest" },
+    "enrollResponse": { "$ref": "#/definitions/enrollResponse" },
+    "pollRequest": { "$ref": "#/definitions/pollRequest" },
+    "pollPending": { "$ref": "#/definitions/pollPending" },
+    "pollApproved": { "$ref": "#/definitions/pollApproved" },
+    "denyRequest": { "$ref": "#/definitions/denyRequest" },
+    "adminStatus": { "$ref": "#/definitions/adminStatus" },
+    "pairApproval": { "$ref": "#/definitions/pairApproval" },
+    "micStartRequest": { "$ref": "#/definitions/micStartRequest" },
+    "micStartOk": { "$ref": "#/definitions/micStartOk" },
+    "pendingApproval": { "$ref": "#/definitions/pendingApproval" },
+    "tokenDelivery": { "$ref": "#/definitions/tokenDelivery" },
+    "deviceBinding": { "$ref": "#/definitions/deviceBinding" },
+    "audioStreamState": { "$ref": "#/definitions/audioStreamState" },
+    "audioReceipt": { "$ref": "#/definitions/audioReceipt" },
+    "features": { "$ref": "#/definitions/features" },
+    "micCancelRequest": { "$ref": "#/definitions/micCancelRequest" },
+    "micCancelResponse": { "$ref": "#/definitions/micCancelResponse" },
+    "errorEnvelope": { "$ref": "#/definitions/errorEnvelope" }
+  },
+  "definitions": {
+    "pairingState": {
+      "type": "string",
+      "enum": ["unpaired", "cert-offered", "trust-pending", "enrollment-pending", "enrolled", "failed-closed"],
+      "description": "Authoritative watch pairing state. failed-closed persists until the user restarts pairing; enrolled means a per-device token is stored alongside a pinned cert."
+    },
+    "certPin": {
+      "type": "string",
+      "pattern": "^sha256/[A-Za-z0-9+/]{43}=$",
+      "description": "DER SHA-256 base64 of exactly 32 bytes, sha256/ prefix. Compared constant-time. Never logged."
+    },
+    "fingerprintDisplay": {
+      "type": "object",
+      "required": ["full", "short"],
+      "properties": {
+        "full": {
+          "type": "string",
+          "pattern": "^([0-9a-f]{2}:){31}[0-9a-f]{2}$",
+          "description": "Full SHA-256 fingerprint, lowercase colon-hex, always one tap away."
+        },
+        "short": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{4}(-[0-9a-f]{4}){5}$",
+          "description": "Minimum 96-bit / 6 groups of 4 hex for side-by-side compare. A 6-digit code MUST NOT be used here."
+        }
+      }
+    },
+    "pairInfo": {
+      "type": "object",
+      "required": ["pairProtocol", "certSha256Pin", "serverDisplayName", "nonce", "fingerprint"],
+      "properties": {
+        "pairProtocol": { "type": "string", "const": "turnkey/1" },
+        "certSha256Pin": { "$ref": "#/definitions/certPin" },
+        "serverDisplayName": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "nonce": { "type": "string", "pattern": "^[\\w-]{1,64}$" },
+        "fingerprint": { "$ref": "#/definitions/fingerprintDisplay" }
+      },
+      "description": "GET /pair/info response: CERT ONLY. Served without auth, carries no user content, no token, no secret."
+    },
+    "enrollmentRequest": {
+      "type": "object",
+      "required": ["deviceAlias", "enrollmentSecret"],
+      "properties": {
+        "deviceAlias": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "enrollmentSecret": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{22,128}$",
+          "description": ">=128-bit client CSPRNG, base64url, single-use, sent ONLY over pinned TLS after fingerprint trust."
+        }
+      },
+      "description": "POST /pair/enroll body. Rejected unless the caller presents the pinned cert channel."
+    },
+    "pendingApproval": {
+      "type": "object",
+      "required": ["requestId", "deviceAlias", "enrolledAtMs", "expiresAtMs", "attemptsLeft"],
+      "properties": {
+        "requestId": { "$ref": "#/definitions/requestId" },
+        "deviceAlias": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "deviceId": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "enrolledAtMs": { "type": "number", "minimum": 0 },
+        "expiresAtMs": { "type": "number", "minimum": 0 },
+        "attemptsLeft": { "type": "number", "minimum": 0, "maximum": 5 },
+        "noncePrefix": { "type": "string", "maxLength": 16 }
+      },
+      "description": "Server pending-request view (trusted authenticated Mac Settings UI only). Pending TTL max 120000ms; max pending entries and per-IP rate bound enforced server-side."
+    },
+    "tokenDelivery": {
+      "type": "object",
+      "required": ["deviceId", "issuedAtMs"],
+      "properties": {
+        "deviceId": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "issuedAtMs": { "type": "number", "minimum": 0 },
+        "note": { "type": "string", "const": "token-bytes-delivered-only-as-pending-request-bearer-over-pinned-TLS-after-approval" }
+      },
+      "description": "Token METADATA envelope only (insufficient for delivery). The token BYTES are field `token` in pollApproved only; this object never carries the bytes."
+    },
+    "requestId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{22,128}$",
+      "description": "Opaque unguessable pending-request id (>=128-bit CSPRNG, base64url). Sensitive: never logged. No auth-query lookup."
+    },
+    "enrollResponse": {
+      "type": "object",
+      "required": ["requestId", "expiresAtMs"],
+      "properties": {
+        "requestId": { "$ref": "#/definitions/requestId" },
+        "expiresAtMs": { "type": "number", "minimum": 0 }
+      },
+      "description": "POST /pair/enroll 201 response. expiresAtMs - enrolledAtMs <= 120000. Synthetic fixtures only."
+    },
+    "pollRequest": {
+      "type": "object",
+      "required": ["requestId", "enrollmentSecret"],
+      "properties": {
+        "requestId": { "$ref": "#/definitions/requestId" },
+        "enrollmentSecret": { "type": "string", "pattern": "^[A-Za-z0-9_-]{22,128}$" }
+      },
+      "description": "POST /pair/poll body. Constant-time secret compare. Sensitive: never logged."
+    },
+    "pollPending": {
+      "type": "object",
+      "required": ["status", "requestId", "expiresAtMs"],
+      "properties": {
+        "status": { "type": "string", "const": "pending" },
+        "requestId": { "$ref": "#/definitions/requestId" },
+        "expiresAtMs": { "type": "number", "minimum": 0 }
+      },
+      "description": "POST /pair/poll 202 pending response."
+    },
+    "pollApproved": {
+      "type": "object",
+      "required": ["status", "deviceId", "token", "certSha256Pin"],
+      "properties": {
+        "status": { "type": "string", "const": "approved" },
+        "deviceId": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "token": { "type": "string", "minLength": 22, "maxLength": 256 },
+        "baseUrl": { "type": "string", "minLength": 1, "maxLength": 256 },
+        "certSha256Pin": { "$ref": "#/definitions/certPin" },
+        "issuedAtMs": { "type": "number", "minimum": 0 }
+      },
+      "description": "POST /pair/poll 200 approved response. Field `token` carries the token BYTES (sensitive: never logged, header-only thereafter, one-use requestId consumed on delivery). baseUrl is the immutable captured origin echo."
+    },
+    "denyRequest": {
+      "type": "object",
+      "required": ["requestId"],
+      "properties": {
+        "requestId": { "$ref": "#/definitions/requestId" }
+      },
+      "description": "POST /pair/deny body (DSH-admin only). No secret accepted."
+    },
+    "adminStatus": {
+      "type": "object",
+      "required": ["fingerprint", "hostCandidates", "port", "backendStatus", "pending"],
+      "properties": {
+        "fingerprint": { "$ref": "#/definitions/fingerprintDisplay" },
+        "hostCandidates": { "type": "array", "items": { "type": "string" } },
+        "port": { "type": "number", "minimum": 1, "maximum": 65535 },
+        "backendStatus": { "type": "string", "maxLength": 64 },
+        "pending": { "type": "array", "items": { "$ref": "#/definitions/pendingApproval" } }
+      },
+      "description": "DSH-admin settings status (requestRejection-gated). Fingerprint/host-candidates/port/backend-status plus identifier-only pending rows."
+    },
+    "pairApproval": {
+      "type": "object",
+      "required": ["requestId", "approve", "fingerprintConfirmed"],
+      "properties": {
+        "requestId": { "$ref": "#/definitions/requestId" },
+        "approve": { "type": "boolean" },
+        "fingerprintConfirmed": { "type": "boolean", "const": true }
+      },
+      "description": "POST /admin/pair/approval body. fingerprintConfirmed MUST be true (Mac-side compare proof). No enrollmentSecret accepted."
+    },
+    "micStartRequest": {
+      "type": "object",
+      "required": ["streamId"],
+      "properties": {
+        "streamId": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "answerRequestId": { "type": "string", "maxLength": 64 }
+      },
+      "description": "POST /watch/mic/start body. streamId is a non-secret correlator, never auth."
+    },
+    "micStartOk": {
+      "type": "object",
+      "required": ["streamId", "state"],
+      "properties": {
+        "streamId": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "state": { "type": "string", "const": "ready" }
+      },
+      "description": "POST /watch/mic/start 200 ready response. Else 503 mic-not-ready actionable."
+    },
+    "deviceBinding": {
+      "type": "object",
+      "required": ["deviceId", "watchedSessionId"],
+      "properties": {
+        "deviceId": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "watchedSessionId": { "type": "string", "minLength": 1 },
+        "autoFollow": { "type": "boolean" }
+      },
+      "description": "GET /watch/binding row: the session the device currently means. autoFollow true clears any pin."
+    },
+    "audioStreamState": {
+      "type": "string",
+      "enum": ["warming", "ready", "capturing", "closed", "error"],
+      "description": "Per-stream audio readiness/capture state. No silent transitions: every entry to error/closed-carries a receipt."
+    },
+    "audioReceipt": {
+      "type": "object",
+      "required": ["streamId", "state", "txChunks", "txBytes", "ackFinals", "delivered"],
+      "properties": {
+        "streamId": { "type": "string", "minLength": 1, "maxLength": 64 },
+        "utteranceId": { "type": "string", "maxLength": 64 },
+        "state": { "$ref": "#/definitions/audioStreamState" },
+        "txChunks": { "type": "number", "minimum": 0 },
+        "txBytes": { "type": "number", "minimum": 0 },
+        "ackFinals": { "type": "integer", "minimum": 0 },
+        "delivered": { "type": "boolean", "description": "True only after genuine host prompt admission; never true for question dictation." },
+        "drafted": { "type": "boolean", "description": "True only after a validated current-question draft was stored. Never a host prompt or host acknowledgement." },
+        "code": { "type": "string", "maxLength": 64 },
+        "message": { "type": "string", "maxLength": 512 },
+        "retryable": { "type": "boolean" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "state": { "const": "error" } }, "required": ["state"] },
+          "then": { "required": ["code", "message", "retryable"] }
+        },
+        {
+          "if": { "properties": { "drafted": { "const": true } }, "required": ["drafted"] },
+          "then": { "properties": { "delivered": { "const": false }, "ackFinals": { "const": 0 }, "state": { "const": "closed" } } }
+        },
+        {
+          "if": { "properties": { "delivered": { "const": true } }, "required": ["delivered"] },
+          "then": { "properties": { "ackFinals": { "minimum": 1 }, "drafted": { "const": false } } }
+        },
+        {
+          "if": { "properties": { "state": { "const": "closed" } }, "required": ["state"] },
+          "then": { "anyOf": [
+            { "properties": { "delivered": { "const": true } } },
+            { "properties": { "drafted": { "const": true } }, "required": ["drafted"] }
+          ] }
+        }
+      ],
+      "description": "Terminal/per-window accounting, never PCM or transcript text. A closed terminal receipt must prove host admission or a real current-question draft. No-speech and delivery failures are errors, not successful closure. Error receipts require code/message/retryable. Legacy receipt compatibility is outside this managed contract."
+    },
+    "features": {
+      "type": "object",
+      "properties": {
+        "queueReorder": { "type": "boolean", "description": "False on SDK rc.1, which cannot reorder. Legacy absence keeps prior UI behavior." },
+        "openMac": { "type": "boolean", "description": "True only when the actual SDK native opener is available. Legacy absence keeps prior UI behavior." },
+        "micCancel": { "type": "boolean", "default": false, "description": "Input-only force-cancel support. Legacy absence means unsupported; never substitute agent or voice-session cancel." }
+      },
+      "additionalProperties": { "type": "boolean" },
+      "description": "Additive capability flags advertised on hello, snapshot, state, health and capabilities."
+    },
+    "micCancelRequest": {
+      "type": "object",
+      "required": ["cmd", "streamId"],
+      "properties": {
+        "cmd": { "const": "mic-cancel" },
+        "streamId": { "type": "string", "pattern": "^[A-Za-z0-9_-]{1,64}$" }
+      },
+      "description": "Authenticated POST /watch/command. Force-cancels only the device-owned pending or ready native input. Normal record-off closes the PCM body and drains its receipt instead. Never cancels an SDK turn, TTS, follow or voice session."
+    },
+    "micCancelResponse": {
+      "type": "object",
+      "required": ["ok", "streamId", "cancelled"],
+      "properties": {
+        "ok": { "const": true },
+        "streamId": { "type": "string", "pattern": "^[A-Za-z0-9_-]{1,64}$" },
+        "cancelled": { "type": "boolean" }
+      },
+      "description": "True only if an owned pending/ready input existed. Missing or already closed is idempotent false. Foreign existing inputs return 403, malformed IDs 400. Cancellation intents are bounded and prevent late preflight allocation or ready acknowledgement."
+    },
+    "errorEnvelope": {
+      "type": "object",
+      "required": ["ok", "error"],
+      "properties": {
+        "ok": { "type": "boolean", "const": false },
+        "error": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "retryable": { "type": "boolean" },
+        "binding": { "$ref": "#/definitions/deviceBinding" }
+      },
+      "description": "Stable failure shape. Known error codes: WATCH_SESSION_UNCONFIGURED, not the watch session, mic-delivery-failed, trust-mismatch, approval-required|denied|expired, rate-limited, pair-probe-liveness-only. Unknown codes surface verbatim."
+    }
+  }
+}

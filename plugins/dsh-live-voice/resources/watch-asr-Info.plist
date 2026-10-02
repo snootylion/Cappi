@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>CFBundleIdentifier</key>
+  <string>ai.deepseek.dsh.watch-asr</string>
+  <key>CFBundleName</key>
+  <string>DSH Watch ASR</string>
+  <key>CFBundleVersion</key>
+  <string>1</string>
+  <key>NSMicrophoneUsageDescription</key>
+  <string>DeepSeek Harness watch voice input uses Apple Speech recognition for piped watch audio.</string>
+  <key>NSSpeechRecognitionUsageDescription</key>
+  <string>DeepSeek Harness watch voice input uses on-device Apple Speech recognition.</string>
+</dict>
+</plist>

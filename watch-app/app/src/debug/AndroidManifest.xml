@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Debug-only merge: hosts the Role X avatar render probe (never in release). -->
+    <application>
+        <activity
+            android:name="dev.dsh.watch.probe.AvatarRenderProbeActivity"
+            android:exported="true" />
+    </application>
+</manifest>
